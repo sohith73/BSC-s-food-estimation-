@@ -110,7 +110,7 @@ End
 
 ## images of Api testing.
 ![Screenshot (555)](https://github.com/user-attachments/assets/68272b4d-1728-44ba-aa00-82d8a48107b2)
-1. only how it hadel edge cases if not a food item it say not a food try again
+1. **Handling Non-Food Items:** If the input is not recognized as a food item, the system will respond with "This is not a food item. Please try again."
 
 ![Screenshot (553)](https://github.com/user-attachments/assets/9bbf81af-8b5e-49b9-8a98-13f5ce1bf65e)
 
