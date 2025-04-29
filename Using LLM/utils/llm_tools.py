@@ -60,7 +60,6 @@ def get_main_ingredients(dish_name: str):
     ]
     raw = llm(msgs).content.strip()
 
-    # 1) Grab the first [...] block (the array itself)
     match = re.search(r'\[.*\]', raw, re.DOTALL)
     if not match:
         print("⚠️ No JSON array found in LLM response.")
@@ -69,10 +68,8 @@ def get_main_ingredients(dish_name: str):
 
     json_text = match.group(0)
 
-    # 2) Fix common fraction issues: wrap 1/2, 1/4, etc. in quotes
     sanitized = re.sub(r'(?<!")(\b\d+/\d+\b)(?!")', r'"\1"', json_text)
 
-    # 3) Try the normal JSON load first
     try:
         data = json.loads(sanitized)
         return data if isinstance(data, list) else [data]
@@ -80,19 +77,16 @@ def get_main_ingredients(dish_name: str):
         print(f"⚠️ JSON parse error: {e}")
         print("Sanitized JSON was:", sanitized)
 
-    # 4) FALLBACK: extract each {...} block and parse individually
     items = re.findall(r'\{[^}]+\}', sanitized)
     parsed = []
     for item in items:
         try:
             obj = json.loads(item)
-            # only accept if both keys present
             if "ingredient" in obj and "quantity" in obj:
                 parsed.append(obj)
                 continue
         except:
             pass
-        # Manual regex fallback for each item
         m_ing = re.search(r'"ingredient"\s*:\s*"([^"]+)"', item)
         m_qty = re.search(r'"quantity"\s*:\s*"([^"]+)"', item)
         if m_ing and m_qty:
