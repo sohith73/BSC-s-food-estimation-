@@ -16,21 +16,14 @@ def get_nutrition():
     dish = data.get("dish_name", "").strip()
     if not dish:
         return jsonify({"error": "dish_name is required"}), 400
-
-    # 1) Validate dish
     if not validate_dish_name(dish):
-        return jsonify({"error": "Not a valid dish. Please try again."}), 400
+        return jsonify({"error": "Not a valid dish. Please enter a valid dish name"}), 400
 
-    # 2) Get per-100g nutrition
     cals100, prot100, carbs100, fat100 = get_per100g_nutrition(dish)
 
-    # 3) Get main ingredients
     ingredients = get_main_ingredients(dish)
 
-    # 4) Classify dish type
     dish_type = classify_category(dish)
-
-    # 5) Extrapolate to per-200ml katori (×2 of per-100g)
     nutrition_200ml = {
         "calories": round(cals100 * 2, 2),
         "protein":  round(prot100 * 2, 2),

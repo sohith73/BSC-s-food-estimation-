@@ -1,5 +1,3 @@
-# utils/llm_tools.py
-
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
 from config import LLM_SETTINGS, CATEGORIES
@@ -20,10 +18,6 @@ def validate_dish_name(dish_name: str) -> bool:
     return resp == "yes"
 
 def get_per100g_nutrition(dish_name: str):
-    """
-    Ask LLM for per-100g nutrition, then extract exactly the four numbers
-    (calories, protein, carbs, fat), ignoring any explanation that follows.
-    """
     msgs = [
         SystemMessage(content=(
             "For the Indian dish named below, return four numbers "
@@ -34,25 +28,16 @@ def get_per100g_nutrition(dish_name: str):
         HumanMessage(content=dish_name)
     ]
     raw = llm(msgs).content
-
-    # 1. Find the first line that looks like comma-separated numbers
     first_line = None
     for line in raw.splitlines():
         line = line.strip()
-        # rough heuristic: must contain at least three commas and digits
         if re.match(r'^[\d\.,\s]+$', line) and line.count(',') >= 3:
             first_line = line
             break
     if first_line is None:
-        # fallback: take everything before the first newline
         first_line = raw.split('\n', 1)[0].strip()
-
-    # 2. Extract numeric tokens
     parts = [p.strip() for p in first_line.split(',') if p.strip()]
-    # Only keep the first four
     parts = parts[:4]
-
-    # 3. Convert to floats with fallback
     try:
         cals, prot, carbs, fat = map(float, parts)
     except Exception:
@@ -72,10 +57,8 @@ def get_main_ingredients(dish_name: str):
         HumanMessage(content=dish_name)
     ]
     resp = llm(msgs).content.strip()
-    # Try parse JSON
     try:
         data = json.loads(resp)
-        # Ensure it's a list
         if isinstance(data, dict):
             return [data]
         elif isinstance(data, list):
@@ -95,8 +78,7 @@ def classify_category(dish_name: str) -> str:
         HumanMessage(content=dish_name)
     ]
     resp = llm(msgs).content.strip()
-    # Extract the first matching category
     for cat in CATEGORIES:
         if cat.lower() in resp.lower():
             return cat
-    return resp  # fallback, but usually one of the list
+    return resp
