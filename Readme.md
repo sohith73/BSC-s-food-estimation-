@@ -30,7 +30,7 @@ Water loss during cooking is ignored.
 ### using LLM
 
 #### how it works 
-1. post request with /get_nutrition
+1. post request with `/get_nutrition`  with `{"dish_name": "some name"}`
 2. LLM will see is it a valid dish or any typos are present and return YES or NO as response 
 2.1 we use Indexing on the food_name for getting data for faster optimized way. don't worry about performance pandas will work very well for the data set it just need around 2 to 5 md of ram 
 3. then LLM will provide the basic ingredients too with quantities 
@@ -43,9 +43,10 @@ Water loss during cooking is ignored.
 1. flask - for creating api 
 2. LangChain - for LLM interaction
 3. LM studio for using my llm as a server 
+4. pandas for csv handing and indexing for fast search
 
 #### edge cases 
-- no matter what our application wont crash 
+- no matter what our application wont crash under any scenario
 - used logging for detailed descriptions 
 - handles for not dishes and cleverly identifies whether it is a dish or not 
 - get more ingredients which are very important 
