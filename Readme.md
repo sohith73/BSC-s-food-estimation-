@@ -8,8 +8,9 @@ This project provides a Flask API that:
      - Using my own llm which is fine tuned on lama 1.5B with recipe , costumer interaction , medical data
      - Using LM studio for making api calls between LLM and APi
      - Maps ingredients to a Nutrition Database.
-
      - Calculates the total nutrition for a standard serving.
+     - used the best methods as much as possible 
+     - main solution in  Using LLM folder
 
 #### Assumptions
 Recipe serves 3–4 people by default.
@@ -30,7 +31,7 @@ Water loss during cooking is ignored.
 #### how it works 
 1. post request with /get_nutrition
 2. LLM will see is it a valid dish or any typos are present and return YES or NO as response 
-2.1 we use Indexing on the food_name for getting data 
+2.1 we use Indexing on the food_name for getting data for faster optimized way. don't worry about performance pandas will work very well for the data set it just need around 2 to 5 md of ram 
 3. then LLM will provide the basic ingredients too with quantities 
 4. Calculate the macros of the food 
 5. Nutrition Calculation for standard serving size (e.g., 180g).
@@ -47,6 +48,11 @@ Water loss during cooking is ignored.
 - used logging for detailed descriptions 
 - handles for not dishes and cleverly identifies whether it is a dish or not 
 - get more ingredients which are very important 
+- * it will also work for the dishes which are not present in csv, added a new column 
+
+```
+"source": "csv" or "source": "llm"
+```
 
 
 ### using Mock data 
@@ -58,3 +64,47 @@ Water loss during cooking is ignored.
 - using redis for most famous recipes 
 - we can create recipes database like my fitness-pal , Life-sum this creates the pre made recipes with its nutation facts 
 - can create another api for creating dish from scratch - there we can use this data base more 
+
+
+## blue print 
+
+```
+Start
+ |
+ |--> 1. Take Dish Name Input
+ |
+ |--> 2. Validate/Spell-Check Dish Name using LLM
+ |        |
+ |        |---> If Not a Dish --> Return Error
+ |        |
+ |        |---> If Valid Dish --> Continue
+ |
+ |--> 3. Search Dish in Nutrition Database
+ |        |
+ |        |---> If Found --> Return Nutrition value and continue from Database in index of food_name 
+ |        |
+ |        |---> If Not Found --> Continue
+ |
+ |--> 4. Ask LLM to Fetch Generic Recipe (ingredients + quantities)
+ |
+ |--> 5. Parse Ingredients List
+ |
+ |--> 6. Standardize Units to (cup, tsp, katori, etc.)
+ |
+ |--> 7. Convert Quantities to Grams
+ |
+ |--> 8. Map Ingredients to Nutrition Database (handle spelling errors)
+ |
+ |--> 9. Calculate Total Nutrition
+ |
+ |--> 10. Identify Dish Type (Wet Sabzi, Dal, etc.)
+ |
+ |--> 11. Extrapolate Nutrition for Standard Serving (e.g., 180g)
+ |
+ |--> 12. Return Final JSON Output
+ |
+End
+
+```
+
+## images of Api testing.

@@ -1,4 +1,4 @@
-MODEL_NAME = "dolphin-2.2.1-mistral-7b"
+MODEL_NAME = "bsc@q4_k_m"
 
 LLM_SETTINGS = {
     "base_url": "http://localhost:1234/v1",   # LM Studio endpoint
@@ -6,6 +6,8 @@ LLM_SETTINGS = {
     "model": MODEL_NAME,
     "streaming": False
 }
+
+NUTRITION_CSV = "nutrition_database.csv"
 
 CATEGORIES = [
     "Dry Rice Item","Wet Rice Item","Veg Gravy","Veg Fry",
