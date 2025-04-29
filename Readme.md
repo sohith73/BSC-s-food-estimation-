@@ -16,6 +16,7 @@ This project provides a Flask API that:
 Recipe serves 3–4 people by default.
 
 Household measurements mapped to grams:
+     
      - 1 cup = 180g
      - 1 tablespoon = 15g
      - 1 teaspoon = 5g
@@ -107,4 +108,18 @@ End
 
 ```
 
-## images of Api testing.
+## images of Api testing from LLM approach.
+![Screenshot (555)](https://github.com/user-attachments/assets/68272b4d-1728-44ba-aa00-82d8a48107b2)
+1. **Handling Non-Food Items:** If the input is not recognized as a food item, the system will respond with "This is not a food item. Please try again."
+
+![Screenshot (553)](https://github.com/user-attachments/assets/9bbf81af-8b5e-49b9-8a98-13f5ce1bf65e)
+
+![Screenshot (551)](https://github.com/user-attachments/assets/89c4e4e1-3554-448f-bc45-1968a788c4b2)
+
+![Screenshot (550)](https://github.com/user-attachments/assets/8435f674-f5e9-447a-9e20-e16fa13150c6)
+- dish created  by LLm it self
+   ![Screenshot (546)](https://github.com/user-attachments/assets/afa57032-80b1-4395-bd3f-38f55d2954a3)
+- dish from data base(csv)
+- ![Screenshot (548)](https://github.com/user-attachments/assets/fad6f044-ad39-4d03-8dfb-867bc46e16a3)
+
+- 
