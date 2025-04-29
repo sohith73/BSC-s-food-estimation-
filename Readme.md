@@ -108,7 +108,7 @@ End
 
 ```
 
-## images of Api testing.
+## images of Api testing from LLM approach.
 ![Screenshot (555)](https://github.com/user-attachments/assets/68272b4d-1728-44ba-aa00-82d8a48107b2)
 1. **Handling Non-Food Items:** If the input is not recognized as a food item, the system will respond with "This is not a food item. Please try again."
 
