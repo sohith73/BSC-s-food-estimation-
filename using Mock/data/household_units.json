@@ -1,0 +1,8 @@
+{
+     "paneer": { "grams_per_unit": 100 },
+     "butter": { "grams_per_unit": 5 },
+     "tomato": { "grams_per_unit": 90 },
+     "onion": { "grams_per_unit": 80 },
+     "cream": { "grams_per_unit": 15 }
+   }
+   
