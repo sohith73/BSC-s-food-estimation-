@@ -1,5 +1,3 @@
-# app.py
-
 from flask import Flask, request, jsonify
 from utils.llm_tools import (
     validate_dish_name,
