@@ -1,4 +1,4 @@
-# VYB AI Assignment: Nutrition Estimation API
+# BSC FOOD's: Nutrition Estimation API
 
 #### Overview
 
